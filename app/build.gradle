@@ -33,6 +33,11 @@ dependencies {
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
 
+    // Exo Player - https://github.com/google/ExoPlayer
+    // For versions, see: https://github.com/google/ExoPlayer/tags
+    implementation 'com.google.android.exoplayer:exoplayer:2.8.2'
+
+
     // Espresso dependencies
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 

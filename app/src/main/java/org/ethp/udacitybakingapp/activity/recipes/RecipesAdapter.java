@@ -9,10 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.ethp.udacitybakingapp.Constants;
 import org.ethp.udacitybakingapp.R;
 import org.ethp.udacitybakingapp.activity.ingredients.IngredientsActivity;
-import org.ethp.udacitybakingapp.activity.steps.StepsActivity;
+import org.ethp.udacitybakingapp.activity.step.StepActivity;
 import org.ethp.udacitybakingapp.data.database.Recipe;
 
 import java.util.List;
@@ -50,7 +49,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
             mStepsButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    startRecipeActivity(view, StepsActivity.class);
+                    startRecipeActivity(view, StepActivity.class);
                 }
             });
         }
@@ -58,7 +57,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
         private void startRecipeActivity(View view, Class<?> activityClass) {
             int position = getAdapterPosition();
             Intent intent = new Intent(view.getContext(), activityClass);
-            intent.putExtra(Constants.EXTRA_RECIPE_ID, mRecipes.get(position).getId());
+            intent.putExtra(EXTRA_RECIPE_ID, mRecipes.get(position).getId());
             view.getContext().startActivity(intent);
         }
 
