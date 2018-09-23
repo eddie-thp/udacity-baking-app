@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
-    android:background="@color/colorAccent"
+    android:background="?android:attr/colorAccent"
 
     android:paddingTop="4dp"
     android:paddingBottom="4dp"

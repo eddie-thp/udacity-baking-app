@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabRecipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:clickable="true"
+        android:tint="@color/secondaryTextColor"
+        app:fabSize="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_local_dining_black_24dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabSteps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:tint="@color/secondaryTextColor"
+        android:visibility="invisible"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@+id/fabRecipe"
+        app:layout_constraintEnd_toEndOf="@+id/fabRecipe"
+        app:layout_constraintStart_toStartOf="@+id/fabRecipe"
+        app:srcCompat="@drawable/ic_format_list_numbered_black_24dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabIngredients"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:tint="@color/secondaryTextColor"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/fabSteps"
+        app:layout_constraintEnd_toEndOf="@+id/fabSteps"
+        app:layout_constraintStart_toStartOf="@+id/fabSteps"
+        app:srcCompat="@drawable/ic_format_list_bulleted_black_24dp" />
+
+    <TextView
+        android:id="@+id/stepsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/steps_button_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/fabSteps"
+        app:layout_constraintEnd_toStartOf="@+id/fabSteps"
+        app:layout_constraintTop_toTopOf="@+id/fabSteps" />
+
+    <TextView
+        android:id="@+id/ingredientsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/ingredients_button_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/fabIngredients"
+        app:layout_constraintEnd_toStartOf="@+id/fabIngredients"
+        app:layout_constraintTop_toTopOf="@+id/fabIngredients" />
+</android.support.constraint.ConstraintLayout>

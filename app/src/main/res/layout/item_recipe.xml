@@ -1,71 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
-    android:background="@color/colorPrimaryDark"
-
-    android:layout_marginTop="2.5dp"
-    android:layout_marginBottom="2.5dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/recipeNameTextView"
+<!--
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="4dp">
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="wrap_content">
+-->
+        <TextView
+            android:id="@+id/recipeNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
 
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
 
-        android:layout_marginTop="8dp"
-        android:textAlignment="center"
+            android:layout_marginTop="8dp"
+            android:textAlignment="center"
 
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
 
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Some Food Recipe" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Some Food Recipe" />
 
-    <include
-        android:id="@+id/ingredientsButton"
-        layout="@layout/button_ingredients"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+<!--
+        <include
+            android:id="@+id/ingredientsButton"
+            layout="@layout/button_ingredients"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
 
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
 
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/stepsButton"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recipeNameTextView" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/stepsButton"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recipeNameTextView" />
 
-    <include
-        android:id="@+id/stepsButton"
-        layout="@layout/button_steps"
+        <include
+            android:id="@+id/stepsButton"
+            layout="@layout/button_steps"
 
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
 
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/ingredientsButton"
-        app:layout_constraintTop_toTopOf="@+id/ingredientsButton" />
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
 
 
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/ingredientsButton"
+            app:layout_constraintTop_toTopOf="@+id/ingredientsButton" />
+-->
+
+<!--
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>
+    -->
 </android.support.constraint.ConstraintLayout>

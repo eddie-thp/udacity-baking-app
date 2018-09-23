@@ -4,13 +4,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
-    android:background="@color/colorAccent"
-
     android:paddingTop="4dp"
     android:paddingBottom="4dp"
 
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <!--
+    android:background="@android:color/colorAccent"
+    -->
 
     <ImageView
         android:id="@+id/stepsImageView"
