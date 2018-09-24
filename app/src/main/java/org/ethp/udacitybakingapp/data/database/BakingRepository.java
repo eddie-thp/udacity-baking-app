@@ -21,6 +21,14 @@ public class BakingRepository {
         return mBakingDao.getRecipes();
     }
 
+    public Recipe getSelectedRecipe() {
+        return mBakingDao.getSelectedRecipe();
+    }
+
+    public void updateRecipe(Recipe recipe) {
+        mBakingDao.updateRecipe(recipe);
+    }
+
     public LiveData<List<Ingredient>> getIngredients(int recipeId) {
         return mBakingDao.getIngredients(recipeId);
     }

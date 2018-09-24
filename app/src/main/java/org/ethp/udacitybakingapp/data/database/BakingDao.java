@@ -22,11 +22,17 @@ public interface BakingDao {
     @Insert
     void insertSteps(List<Step> steps);
 
+    @Update
+    void updateRecipe(Recipe recipe);
+
     @Query("SELECT * FROM recipes ORDER BY id")
     LiveData<List<Recipe>> getRecipes();
 
     @Query("SELECT COUNT(*) FROM recipes")
     int getRecipeCount();
+
+    @Query("SELECT * from recipes WHERE selected = 1")
+    Recipe getSelectedRecipe();
 
     @Query("SELECT * FROM ingredients WHERE recipeId=:recipeId")
     LiveData<List<Ingredient>> getIngredients(final int recipeId);

@@ -33,6 +33,7 @@ public class Recipe {
     private String name;
     private int servings;
     private String image;
+    private boolean selected;
 
     @Ignore
     private List<Ingredient> ingredients;
@@ -42,6 +43,7 @@ public class Recipe {
 
     @Ignore
     private Recipe() {
+        this.selected = false;
     }
 
     public Recipe(int id, String name, int servings, String image) {
@@ -49,6 +51,7 @@ public class Recipe {
         this.name = name;
         this.servings = servings;
         this.image = image;
+        this.selected = false;
     }
 
     public int getId() {
@@ -81,6 +84,14 @@ public class Recipe {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public boolean getSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 
     public List<Ingredient> getIngredients() {

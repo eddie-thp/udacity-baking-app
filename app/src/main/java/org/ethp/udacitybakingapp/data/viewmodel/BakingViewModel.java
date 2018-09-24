@@ -25,6 +25,14 @@ public class BakingViewModel extends AndroidViewModel {
         return mBakingRepository.getRecipes();
     }
 
+    public Recipe getSelectedRecipe() {
+        return mBakingRepository.getSelectedRecipe();
+    }
+
+    public void updateRecipe(Recipe recipe) {
+        mBakingRepository.updateRecipe(recipe);
+    }
+
     public LiveData<List<Ingredient>> getIngredients(int recipeId) {
         return mBakingRepository.getIngredients(recipeId);
     }
