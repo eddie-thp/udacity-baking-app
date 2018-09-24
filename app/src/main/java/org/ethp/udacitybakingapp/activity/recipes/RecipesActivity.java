@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -62,6 +63,15 @@ public class RecipesActivity extends AppCompatActivity {
         mRecipeMenuFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // TODO in the future we may want to move the FAB above, as the snackbar shows up: https://stackoverflow.com/questions/33709953/make-snackbar-push-view-upwards
+                // TODO also check: https://lab.getbase.com/introduction-to-coordinator-layout-on-android/
+                // I've tried the above, but couldn't make it work :(
+                Snackbar.make(v, R.string.error_no_recipe_selected, Snackbar.LENGTH_LONG).show();
+
+                if (true)
+                return;
+
                 // TODO check if recipe is selected
                 final int visibility = (mStepsMenuFAB.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
                 mStepsMenuFAB.setVisibility(visibility);

@@ -2,6 +2,7 @@
     <string name="app_name">Udacity Baking App</string>
 
     <!-- Recipes activity -->
+    <string name="error_no_recipe_selected">Please, select a recipe from the list.</string>
 
     <!-- Recipes item -->
     <string name="servings_label">Servings</string>
