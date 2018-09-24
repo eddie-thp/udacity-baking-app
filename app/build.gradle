@@ -9,6 +9,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -28,12 +30,23 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    // Material design widgets and layouts (e.g. FAB, ...)
+    implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.android.support:support-annotations:27.1.1'
 
-    implementation 'com.android.support:cardview-v7:27.1.1'
+    // Guava
+    implementation 'com.google.guava:guava:26.0-android'
 
-    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+
+    // Glide transformations
+    implementation 'jp.wasabeef:glide-transformations:3.3.0'
+
 
     // Exo Player - https://github.com/google/ExoPlayer
     // For versions, see: https://github.com/google/ExoPlayer/tags
@@ -83,5 +96,4 @@ dependencies {
     //androidTestImplementation "org.powermock:powermock-module-junit4-rule-agent:$powermock_version"
     androidTestImplementation "org.powermock:powermock-module-junit4-rule:$powermock_version"
     androidTestImplementation "org.powermock:powermock-module-junit4:$powermock_version"
-    implementation 'com.android.support:design:27.1.1'
 }

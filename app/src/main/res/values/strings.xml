@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">Udacity Baking App</string>
+
+    <!-- Recipes activity -->
+
+    <!-- Recipes item -->
+    <string name="servings_label">Servings</string>
+
+    <!-- Recipes activity menu -->
     <string name="ingredients_button_title">Ingredients</string>
     <string name="steps_button_title">Steps</string>
+
+
+
 </resources>

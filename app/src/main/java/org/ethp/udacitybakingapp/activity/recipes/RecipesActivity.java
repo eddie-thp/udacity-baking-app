@@ -3,10 +3,13 @@ package org.ethp.udacitybakingapp.activity.recipes;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
 import org.ethp.udacitybakingapp.R;
 import org.ethp.udacitybakingapp.data.database.Recipe;
@@ -22,6 +25,21 @@ public class RecipesActivity extends AppCompatActivity {
     @BindView(R.id.recipesRecyclerView)
     RecyclerView mRecipesRecyclerView;
 
+    @BindView(R.id.recipeMenuFAB)
+    FloatingActionButton mRecipeMenuFAB;
+
+    @BindView(R.id.stepsMenuFAB)
+    FloatingActionButton mStepsMenuFAB;
+
+    @BindView(R.id.stepsMenuTextView)
+    TextView mStepsMenuTextView;
+
+    @BindView(R.id.ingredientsMenuFAB)
+    FloatingActionButton mIngredientsMenuFAB;
+
+    @BindView(R.id.ingredientsMenuTextView)
+    TextView mIngredientsMenuTextView;
+
     private RecipesAdapter mRecipesAdapter;
 
     private BakingViewModel mBakingViewModel;
@@ -35,6 +53,27 @@ public class RecipesActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         // Setup views
+        setupFABMenu();
+        setupRecipesRecyclerView();
+
+    }
+
+    void setupFABMenu() {
+        mRecipeMenuFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO check if recipe is selected
+                final int visibility = (mStepsMenuFAB.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
+                mStepsMenuFAB.setVisibility(visibility);
+                mStepsMenuTextView.setVisibility(visibility);
+                mIngredientsMenuFAB.setVisibility(visibility);
+                mIngredientsMenuTextView.setVisibility(visibility);
+            }
+        });
+    }
+
+    void setupRecipesRecyclerView()
+    {
         mRecipesAdapter = new RecipesAdapter();
         mRecipesRecyclerView.setAdapter(mRecipesAdapter);
         mRecipesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -48,4 +87,10 @@ public class RecipesActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+
+
+
 }

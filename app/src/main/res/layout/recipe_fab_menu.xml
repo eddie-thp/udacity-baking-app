@@ -6,22 +6,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- See Lesson 2.11 Surfaces -->
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabRecipe"
+        android:id="@+id/recipeMenuFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:clickable="true"
         android:tint="@color/secondaryTextColor"
+        android:foregroundGravity="right|bottom"
         app:fabSize="normal"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_local_dining_black_24dp" />
+        app:srcCompat="@drawable/ic_local_dining_black_24dp"
+        android:focusable="true" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabSteps"
+        android:id="@+id/stepsMenuFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -29,26 +34,33 @@
         android:tint="@color/secondaryTextColor"
         android:visibility="invisible"
         app:fabSize="mini"
-        app:layout_constraintBottom_toTopOf="@+id/fabRecipe"
-        app:layout_constraintEnd_toEndOf="@+id/fabRecipe"
-        app:layout_constraintStart_toStartOf="@+id/fabRecipe"
-        app:srcCompat="@drawable/ic_format_list_numbered_black_24dp" />
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/recipeMenuFAB"
+        app:layout_constraintEnd_toEndOf="@+id/recipeMenuFAB"
+        app:layout_constraintStart_toStartOf="@+id/recipeMenuFAB"
+        app:srcCompat="@drawable/ic_format_list_numbered_black_24dp"
+        android:focusable="true" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabIngredients"
+        android:id="@+id/ingredientsMenuFAB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:clickable="true"
         android:tint="@color/secondaryTextColor"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/fabSteps"
-        app:layout_constraintEnd_toEndOf="@+id/fabSteps"
-        app:layout_constraintStart_toStartOf="@+id/fabSteps"
-        app:srcCompat="@drawable/ic_format_list_bulleted_black_24dp" />
+        app:fabSize="mini"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/stepsMenuFAB"
+        app:layout_constraintEnd_toEndOf="@+id/stepsMenuFAB"
+        app:layout_constraintStart_toStartOf="@+id/stepsMenuFAB"
+        app:srcCompat="@drawable/ic_format_list_bulleted_black_24dp"
+        android:focusable="true" />
 
     <TextView
-        android:id="@+id/stepsTextView"
+        android:id="@+id/stepsMenuTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -56,12 +68,12 @@
         android:text="@string/steps_button_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/fabSteps"
-        app:layout_constraintEnd_toStartOf="@+id/fabSteps"
-        app:layout_constraintTop_toTopOf="@+id/fabSteps" />
+        app:layout_constraintBottom_toBottomOf="@+id/stepsMenuFAB"
+        app:layout_constraintEnd_toStartOf="@+id/stepsMenuFAB"
+        app:layout_constraintTop_toTopOf="@+id/stepsMenuFAB" />
 
     <TextView
-        android:id="@+id/ingredientsTextView"
+        android:id="@+id/ingredientsMenuTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -69,7 +81,8 @@
         android:text="@string/ingredients_button_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/fabIngredients"
-        app:layout_constraintEnd_toStartOf="@+id/fabIngredients"
-        app:layout_constraintTop_toTopOf="@+id/fabIngredients" />
+        app:layout_constraintBottom_toBottomOf="@+id/ingredientsMenuFAB"
+        app:layout_constraintEnd_toStartOf="@+id/ingredientsMenuFAB"
+        app:layout_constraintTop_toTopOf="@+id/ingredientsMenuFAB" />
+
 </android.support.constraint.ConstraintLayout>

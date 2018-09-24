@@ -6,85 +6,68 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-<!--
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-
-    android:layout_marginTop="4dp"
-    android:layout_marginBottom="4dp"
-    android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp"
-
-    android:layout_gravity="center"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    card_view:cardCornerRadius="4dp">
-
-    <android.support.constraint.ConstraintLayout
+    <ImageView
+        android:id="@+id/recipeImageView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
--->
-        <TextView
-            android:id="@+id/recipeNameTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        android:layout_height="200dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="false"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/servingsLabelTextView"
+        tools:src="@mipmap/recipe_1" />
 
-            android:layout_marginEnd="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginStart="8dp"
+    <TextView
+        android:id="@+id/recipeNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-            android:layout_marginTop="8dp"
-            android:textAlignment="center"
+        android:layout_marginTop="8dp"
+        android:textAlignment="center"
 
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="8dp"
+        tools:text="Some Food Recipe" />
 
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Some Food Recipe" />
+    <TextView
+        android:id="@+id/servingsLabelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/servings_label"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        app:layout_constraintStart_toEndOf="@+id/servingsTextView"
+        app:layout_constraintTop_toBottomOf="@+id/recipeNameTextView" />
 
-<!--
-        <include
-            android:id="@+id/ingredientsButton"
-            layout="@layout/button_ingredients"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+    <TextView
+        android:id="@+id/servingsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recipeNameTextView"
+        tools:text="9" />
 
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="16dp"
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recipeImageView" />
 
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/stepsButton"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recipeNameTextView" />
-
-        <include
-            android:id="@+id/stepsButton"
-            layout="@layout/button_steps"
-
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/ingredientsButton"
-            app:layout_constraintTop_toTopOf="@+id/ingredientsButton" />
--->
-
-<!--
-    </android.support.constraint.ConstraintLayout>
-</android.support.v7.widget.CardView>
-    -->
 </android.support.constraint.ConstraintLayout>
