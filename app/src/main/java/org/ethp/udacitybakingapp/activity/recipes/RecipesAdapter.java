@@ -114,7 +114,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
         if (isRecipeImageEmpty) {
             glideReqBuilder
                     .apply(RequestOptions.signatureOf(new ObjectKey(recipe)))
-                    .apply(RequestOptions.bitmapTransform(new BlurTransformation(25, 3)));
+                    .apply(RequestOptions.bitmapTransform(new BlurTransformation(15, 2)));
         }
 
         glideReqBuilder.into(holder.mRecipeImageView);
