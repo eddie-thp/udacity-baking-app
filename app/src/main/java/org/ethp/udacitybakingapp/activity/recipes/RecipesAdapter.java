@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.UiThread;
 import android.support.transition.CircularPropagation;
@@ -91,18 +92,14 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
                             public void run() {
                                 Recipe selectedRecipe = mBakingViewModel.getSelectedRecipe();
 
+                                // Unset previously selected recipe
                                 if (selectedRecipe != null && selectedRecipe != viewHolder.mRecipe) {
-                                    // TODO Clear back-ground currently selected recipe
                                     selectedRecipe.setSelected(false);
                                     mBakingViewModel.updateRecipe(selectedRecipe);
-                                    selectedRecipe = null;
                                 }
 
-                                if (selectedRecipe == null) {
-
-                                    viewHolder.mRecipe.setSelected(true);
-                                    mBakingViewModel.updateRecipe(viewHolder.mRecipe);
-
+                                // Animate the background change
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                     mActivity.runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
@@ -115,12 +112,15 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
 
                                                 v.setBackgroundColor(mActivity.getResources().getColor(R.color.primaryLightColor));
                                                 anim.start();
-                                            } else {
-                                                v.setBackgroundColor(mActivity.getResources().getColor(R.color.primaryLightColor));
                                             }
                                         }
                                     });
                                 }
+
+                                // Apply the change to the model
+                                viewHolder.mRecipe.setSelected(true);
+                                mBakingViewModel.updateRecipe(viewHolder.mRecipe);
+
                             }
                         });
             }
@@ -139,23 +139,23 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
 
         String recipeImage = recipe.getImage();
 
-        final boolean isRecipeImageEmpty = Strings.isNullOrEmpty(recipeImage);
-        if (isRecipeImageEmpty)
-        {
-            recipeImage = PLACEHOLDER_SERVICE_URL;
+        Glide.with(holder.itemView)
+                .load(recipeImage)
+                .apply(RequestOptions.centerCropTransform())
+                .apply(RequestOptions.placeholderOf(R.mipmap.recipe_placeholder))
+                .apply(RequestOptions.signatureOf(new ObjectKey(recipe)))
+                .apply(RequestOptions.bitmapTransform(new BlurTransformation(15, 2)))
+                .into(holder.mRecipeImageView);
+
+        if (recipe.getSelected()) {
+            // TODO investigate how can animate the itemView:
+            // java.lang.IllegalStateException: Cannot start this animator on a detached view!
+            // https://stackoverflow.com/questions/34836902/clear-animation-in-viewholders-item-recyclerview
+            // NOTE: for now, we are animating when the user clicks on the item - it feels like a hack
+            holder.itemView.setBackgroundColor(mActivity.getResources().getColor(R.color.primaryLightColor));
+        } else {
+            holder.itemView.setBackgroundColor(0);
         }
-
-        RequestBuilder glideReqBuilder = Glide.with(holder.itemView)
-                .load(recipeImage);
-
-        if (isRecipeImageEmpty) {
-            glideReqBuilder
-                    .apply(RequestOptions.signatureOf(new ObjectKey(recipe)))
-                    .apply(RequestOptions.bitmapTransform(new BlurTransformation(15, 2)));
-        }
-
-        glideReqBuilder.into(holder.mRecipeImageView);
-
     }
 
     void setRecipes(List<Recipe> recipes){

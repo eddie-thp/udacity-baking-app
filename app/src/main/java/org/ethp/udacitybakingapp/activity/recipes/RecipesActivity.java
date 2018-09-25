@@ -82,7 +82,6 @@ public class RecipesActivity extends AppCompatActivity {
                             return;
                         }
 
-                        // TODO check if recipe is selected
                         final int visibility = (mStepsMenuFAB.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
                         runOnUiThread(new Runnable() {
                             @Override
@@ -143,9 +142,4 @@ public class RecipesActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
-
-
 }

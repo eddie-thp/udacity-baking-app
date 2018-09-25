@@ -68,6 +68,9 @@
         android:text="@string/steps_button_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         android:visibility="invisible"
+        android:background="@drawable/bg_rect_round_border"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/stepsMenuFAB"
         app:layout_constraintEnd_toStartOf="@+id/stepsMenuFAB"
         app:layout_constraintTop_toTopOf="@+id/stepsMenuFAB" />
@@ -81,6 +84,9 @@
         android:text="@string/ingredients_button_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         android:visibility="invisible"
+        android:background="@drawable/bg_rect_round_border"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/ingredientsMenuFAB"
         app:layout_constraintEnd_toStartOf="@+id/ingredientsMenuFAB"
         app:layout_constraintTop_toTopOf="@+id/ingredientsMenuFAB" />

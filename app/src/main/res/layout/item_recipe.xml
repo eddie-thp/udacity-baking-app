@@ -22,7 +22,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/servingsLabelTextView"
-        tools:src="@mipmap/recipe_1" />
+        tools:src="@mipmap/recipe_placeholder" />
 
     <TextView
         android:id="@+id/recipeNameTextView"
