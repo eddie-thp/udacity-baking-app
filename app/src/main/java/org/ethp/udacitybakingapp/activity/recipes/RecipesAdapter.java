@@ -143,12 +143,10 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
                 .load(recipeImage)
                 .apply(RequestOptions.centerCropTransform())
                 .apply(RequestOptions.placeholderOf(R.mipmap.recipe_placeholder))
-                .apply(RequestOptions.signatureOf(new ObjectKey(recipe)))
-                .apply(RequestOptions.bitmapTransform(new BlurTransformation(15, 2)))
                 .into(holder.mRecipeImageView);
 
         if (recipe.getSelected()) {
-            // TODO investigate how can animate the itemView:
+            // TODO investigate how can animate the itemView through onBindViewHolder
             // java.lang.IllegalStateException: Cannot start this animator on a detached view!
             // https://stackoverflow.com/questions/34836902/clear-animation-in-viewholders-item-recyclerview
             // NOTE: for now, we are animating when the user clicks on the item - it feels like a hack

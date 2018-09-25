@@ -1,5 +1,6 @@
 package org.ethp.udacitybakingapp.activity.recipes;
 
+import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -86,10 +87,7 @@ public class RecipesActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                mStepsMenuFAB.setVisibility(visibility);
-                                mStepsMenuTextView.setVisibility(visibility);
-                                mIngredientsMenuFAB.setVisibility(visibility);
-                                mIngredientsMenuTextView.setVisibility(visibility);
+                                setRecipesFABSubMenuVisibility(visibility);
                             }
                         });
                     }
@@ -104,13 +102,19 @@ public class RecipesActivity extends AppCompatActivity {
             }
         });
 
-
         mIngredientsMenuFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startRecipeActivity(IngredientsActivity.class);
             }
         });
+    }
+
+    void setRecipesFABSubMenuVisibility(final int visibility) {
+        mStepsMenuFAB.setVisibility(visibility);
+        mStepsMenuTextView.setVisibility(visibility);
+        mIngredientsMenuFAB.setVisibility(visibility);
+        mIngredientsMenuTextView.setVisibility(visibility);
     }
 
     void setupRecipesRecyclerView()
@@ -132,6 +136,7 @@ public class RecipesActivity extends AppCompatActivity {
     }
 
     private void startRecipeActivity(final Class<?> activityClass) {
+        setRecipesFABSubMenuVisibility(View.INVISIBLE);
         AppExecutors.getInstance().getDiskExecutor().execute(new Runnable() {
             @Override
             public void run() {
