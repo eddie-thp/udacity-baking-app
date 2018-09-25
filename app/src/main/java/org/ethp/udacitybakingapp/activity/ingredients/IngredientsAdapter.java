@@ -6,10 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import org.ethp.udacitybakingapp.AppExecutors;
 import org.ethp.udacitybakingapp.R;
 import org.ethp.udacitybakingapp.data.database.Ingredient;
+import org.ethp.udacitybakingapp.data.viewmodel.BakingViewModel;
 
 import java.util.List;
 
@@ -18,7 +22,13 @@ import butterknife.ButterKnife;
 
 public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.IngredientViewHolder> {
 
+    private BakingViewModel mBakingViewModel;
+
     private List<Ingredient> mIngredients;
+
+    public IngredientsAdapter(BakingViewModel bakingViewModel) {
+        mBakingViewModel = bakingViewModel;
+    }
 
     public class IngredientViewHolder extends RecyclerView.ViewHolder {
 
@@ -30,6 +40,9 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
 
         @BindView(R.id.measurementTextView)
         TextView mMeasurementTextView;
+
+        @BindView(R.id.ingredientCheckBox)
+        CheckBox mChecked;
 
         public IngredientViewHolder(View itemView) {
             super(itemView);
@@ -51,10 +64,29 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull IngredientViewHolder holder, int position) {
-        Ingredient ingredient = mIngredients.get(position);
+        final Ingredient ingredient = mIngredients.get(position);
         holder.mIngredientNameTextView.setText(ingredient.getIngredient());
         holder.mQuantityTextView.setText(String.valueOf(ingredient.getQuantity()));
         holder.mMeasurementTextView.setText(ingredient.getMeasure());
+
+        // Remove listener, setChecked and add listener
+        holder.mChecked.setOnCheckedChangeListener(null);
+        holder.mChecked.setChecked(ingredient.isChecked());
+        holder.mChecked.setOnCheckedChangeListener(
+                new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        ingredient.setChecked(isChecked);
+
+                        AppExecutors.getInstance().getDiskExecutor().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                mBakingViewModel.updateIngredient(ingredient);
+                            }
+                        });
+                    }
+                }
+        );
     }
 
     void setIngredients(List<Ingredient> ingredients){

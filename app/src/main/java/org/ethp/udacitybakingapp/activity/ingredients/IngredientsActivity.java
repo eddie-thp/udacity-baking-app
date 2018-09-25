@@ -32,17 +32,19 @@ public class IngredientsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredients);
 
+        // Setup view model
+        mBakingViewModel = ViewModelProviders.of(this).get(BakingViewModel.class);
+
+
         // Bind views
         ButterKnife.bind(this);
 
         // Setup views
-        mIngredientsAdapter = new IngredientsAdapter();
+        mIngredientsAdapter = new IngredientsAdapter(mBakingViewModel);
         mIngredientsRecyclerView.setAdapter(mIngredientsAdapter);
         mIngredientsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Setup view model
-        mBakingViewModel = ViewModelProviders.of(this).get(BakingViewModel.class);
-
+        // Load list of ingredients
         int recipeId = getIntent().getIntExtra(Constants.EXTRA_RECIPE_ID, -1);
         if (recipeId >= 0) {
             mBakingViewModel.getIngredients(recipeId).observe(this, new Observer<List<Ingredient>>() {

@@ -33,6 +33,10 @@ public class BakingRepository {
         return mBakingDao.getIngredients(recipeId);
     }
 
+    public void updateIngredient(Ingredient ingredient) {
+        mBakingDao.updateIngredient(ingredient);
+    }
+
     public LiveData<List<Step>> getSteps(int recipeId) {
         return mBakingDao.getSteps(recipeId);
     }

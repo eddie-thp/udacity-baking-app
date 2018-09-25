@@ -39,6 +39,7 @@ public class Ingredient {
     String measure;
     int quantity;
     int recipeId;
+    boolean checked;
 
     @Ignore
     private Ingredient() {
@@ -83,6 +84,14 @@ public class Ingredient {
         this.recipeId = recipeId;
     }
 
+    public boolean isChecked () {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
     public static List<Ingredient> fromJSONArray(Recipe recipe, JSONArray jsonArray) {
         List<Ingredient> ingredients = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
@@ -94,11 +103,13 @@ public class Ingredient {
                 ingredient.setIngredient(ingredientJSON.getString(JSON_INGREDIENT));
                 ingredient.setMeasure(ingredientJSON.getString(JSON_MEASURE));
                 ingredient.setQuantity(ingredientJSON.getInt(JSON_QUANTITY));
+                ingredient.setChecked(false);
 
                 ingredients.add(ingredient);
             } catch (JSONException e) {
                 Log.e(LOG_TAG, "Failed to parse step JSON", e);
             }
         }
-        return ingredients;    }
+        return ingredients;
+    }
 }

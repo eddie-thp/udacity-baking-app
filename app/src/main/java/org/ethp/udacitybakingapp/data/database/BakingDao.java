@@ -25,6 +25,9 @@ public interface BakingDao {
     @Update
     void updateRecipe(Recipe recipe);
 
+    @Update
+    void updateIngredient(Ingredient ingredient);
+
     @Query("SELECT * FROM recipes ORDER BY id")
     LiveData<List<Recipe>> getRecipes();
 
