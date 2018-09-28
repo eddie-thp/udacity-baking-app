@@ -45,7 +45,7 @@ public class StepsActivity extends AppCompatActivity {
 
         int recipeId = getIntent().getIntExtra(Constants.EXTRA_RECIPE_ID, -1);
         if (recipeId >= 0) {
-            mBakingViewModel.getSteps(recipeId).observe(this, new Observer<List<Step>>() {
+            mBakingViewModel.getStepsLiveData(recipeId).observe(this, new Observer<List<Step>>() {
                 @Override
                 public void onChanged(@Nullable List<Step> steps) {
                     mStepsAdapter.setSteps(steps);

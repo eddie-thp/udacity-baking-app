@@ -96,7 +96,7 @@ public class StepActivity extends AppCompatActivity implements Player.EventListe
             initializeMediaSession();
 
             // TODO store current recipe / step in the database
-            mBakingViewModel.getSteps(recipeId).observe(this, new Observer<List<Step>>() {
+            mBakingViewModel.getStepsLiveData(recipeId).observe(this, new Observer<List<Step>>() {
                 @Override
                 public void onChanged(@Nullable List<Step> steps) {
                     mSteps = steps;

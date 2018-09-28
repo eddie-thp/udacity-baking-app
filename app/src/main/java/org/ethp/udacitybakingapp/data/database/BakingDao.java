@@ -29,7 +29,7 @@ public interface BakingDao {
     void updateIngredient(Ingredient ingredient);
 
     @Query("SELECT * FROM recipes ORDER BY id")
-    LiveData<List<Recipe>> getRecipes();
+    LiveData<List<Recipe>> getRecipesLiveData();
 
     @Query("SELECT COUNT(*) FROM recipes")
     int getRecipeCount();
@@ -38,9 +38,12 @@ public interface BakingDao {
     Recipe getSelectedRecipe();
 
     @Query("SELECT * FROM ingredients WHERE recipeId=:recipeId")
-    LiveData<List<Ingredient>> getIngredients(final int recipeId);
+    LiveData<List<Ingredient>> getIngredientsLiveData(final int recipeId);
+
+    @Query("SELECT * FROM ingredients WHERE recipeId=:recipeId")
+    List<Ingredient> getIngredients(final int recipeId);
 
     @Query("SELECT * FROM steps WHERE recipeId=:recipeId")
-    LiveData<List<Step>> getSteps(final int recipeId);
+    LiveData<List<Step>> getStepsLiveData(final int recipeId);
 
 }

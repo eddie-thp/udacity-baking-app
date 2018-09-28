@@ -2,6 +2,7 @@ package org.ethp.udacitybakingapp.data.database;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.content.Context;
 
 import java.util.List;
 
@@ -12,13 +13,13 @@ public class BakingRepository {
 
     private BakingDao mBakingDao;
 
-    public BakingRepository(Application application) {
-        BakingDatabase db = BakingDatabase.getInstance(application);
+    public BakingRepository(Context context) {
+        BakingDatabase db = BakingDatabase.getInstance(context);
         mBakingDao = db.getBakingDao();
     }
 
-    public LiveData<List<Recipe>> getRecipes() {
-        return mBakingDao.getRecipes();
+    public LiveData<List<Recipe>> getRecipesLiveData() {
+        return mBakingDao.getRecipesLiveData();
     }
 
     public Recipe getSelectedRecipe() {
@@ -29,7 +30,11 @@ public class BakingRepository {
         mBakingDao.updateRecipe(recipe);
     }
 
-    public LiveData<List<Ingredient>> getIngredients(int recipeId) {
+    public LiveData<List<Ingredient>> getIngredientsLiveData(int recipeId) {
+        return mBakingDao.getIngredientsLiveData(recipeId);
+    }
+
+    public List<Ingredient> getIngredients(int recipeId) {
         return mBakingDao.getIngredients(recipeId);
     }
 
@@ -37,8 +42,8 @@ public class BakingRepository {
         mBakingDao.updateIngredient(ingredient);
     }
 
-    public LiveData<List<Step>> getSteps(int recipeId) {
-        return mBakingDao.getSteps(recipeId);
+    public LiveData<List<Step>> getStepsLiveData(int recipeId) {
+        return mBakingDao.getStepsLiveData(recipeId);
     }
 
 }

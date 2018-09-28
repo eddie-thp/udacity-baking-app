@@ -21,8 +21,8 @@ public class BakingViewModel extends AndroidViewModel {
         mBakingRepository = new BakingRepository(application);
     }
 
-    public LiveData<List<Recipe>> getRecipes() {
-        return mBakingRepository.getRecipes();
+    public LiveData<List<Recipe>> getRecipesLiveData() {
+        return mBakingRepository.getRecipesLiveData();
     }
 
     public Recipe getSelectedRecipe() {
@@ -33,15 +33,15 @@ public class BakingViewModel extends AndroidViewModel {
         mBakingRepository.updateRecipe(recipe);
     }
 
-    public LiveData<List<Ingredient>> getIngredients(int recipeId) {
-        return mBakingRepository.getIngredients(recipeId);
+    public LiveData<List<Ingredient>> getIngredientsLiveData(int recipeId) {
+        return mBakingRepository.getIngredientsLiveData(recipeId);
     }
 
     public void updateIngredient(Ingredient ingredient) {
         mBakingRepository.updateIngredient(ingredient);
     }
 
-    public LiveData<List<Step>> getSteps(int recipeId) {
-        return mBakingRepository.getSteps(recipeId);
+    public LiveData<List<Step>> getStepsLiveData(int recipeId) {
+        return mBakingRepository.getStepsLiveData(recipeId);
     }
 }

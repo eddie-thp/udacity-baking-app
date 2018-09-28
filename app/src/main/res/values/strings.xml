@@ -11,6 +11,7 @@
     <string name="ingredients_button_title">Ingredients</string>
     <string name="steps_button_title">Steps</string>
 
-
+    <!-- Selected recipe ingredients widget -->
+    <string name="widget_error_no_recipe_selected">No recipe selected.</string>
 
 </resources>

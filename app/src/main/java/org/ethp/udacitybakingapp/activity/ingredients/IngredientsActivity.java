@@ -47,7 +47,7 @@ public class IngredientsActivity extends AppCompatActivity {
         // Load list of ingredients
         int recipeId = getIntent().getIntExtra(Constants.EXTRA_RECIPE_ID, -1);
         if (recipeId >= 0) {
-            mBakingViewModel.getIngredients(recipeId).observe(this, new Observer<List<Ingredient>>() {
+            mBakingViewModel.getIngredientsLiveData(recipeId).observe(this, new Observer<List<Ingredient>>() {
                 @Override
                 public void onChanged(@Nullable List<Ingredient> ingredients) {
                     mIngredientsAdapter.setIngredients(ingredients);

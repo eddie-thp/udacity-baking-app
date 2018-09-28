@@ -127,7 +127,7 @@ public class RecipesActivity extends AppCompatActivity {
         mRecipesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Observer view model changes
-        mBakingViewModel.getRecipes().observe(this, new Observer<List<Recipe>>() {
+        mBakingViewModel.getRecipesLiveData().observe(this, new Observer<List<Recipe>>() {
             @Override
             public void onChanged(@Nullable List<Recipe> recipes) {
                 mRecipesAdapter.setRecipes(recipes);
