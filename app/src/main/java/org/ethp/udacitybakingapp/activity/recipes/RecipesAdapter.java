@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
@@ -29,6 +30,7 @@ import org.ethp.udacitybakingapp.AppExecutors;
 import org.ethp.udacitybakingapp.R;
 import org.ethp.udacitybakingapp.data.database.Recipe;
 import org.ethp.udacitybakingapp.data.viewmodel.BakingViewModel;
+import org.ethp.udacitybakingapp.widget.UpdateSelectedRecipeIntentService;
 
 import java.util.List;
 
@@ -97,6 +99,9 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
                                     selectedRecipe.setSelected(false);
                                     mBakingViewModel.updateRecipe(selectedRecipe);
                                 }
+
+                                Intent intent = new Intent(mActivity, UpdateSelectedRecipeIntentService.class);
+                                mActivity.startService(intent);
 
                                 // Animate the background change
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
