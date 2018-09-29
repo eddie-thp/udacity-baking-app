@@ -29,13 +29,13 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
 
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget_provider);
 
+        // Request update to the recipe name
+        requestUpdateSelectedRecipe(context);
+
         // Request update to the list of ingredients
         requestIngredientsUpdate(context, views);
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
-
-        // Request update to the recipe name
-        requestUpdateSelectedRecipe(context);
 
     }
 
@@ -44,7 +44,7 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
         remoteViews.setRemoteAdapter(R.id.ingredientsList, intent);
     }
 
-    private void requestUpdateSelectedRecipe(Context context) {
+    public static void requestUpdateSelectedRecipe(Context context) {
         Intent intent = new Intent(context, UpdateSelectedRecipeIntentService.class);
         context.startService(intent);
     }

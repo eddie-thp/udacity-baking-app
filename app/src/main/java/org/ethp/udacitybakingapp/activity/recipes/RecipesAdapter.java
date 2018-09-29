@@ -30,6 +30,7 @@ import org.ethp.udacitybakingapp.AppExecutors;
 import org.ethp.udacitybakingapp.R;
 import org.ethp.udacitybakingapp.data.database.Recipe;
 import org.ethp.udacitybakingapp.data.viewmodel.BakingViewModel;
+import org.ethp.udacitybakingapp.widget.IngredientsWidgetProvider;
 import org.ethp.udacitybakingapp.widget.UpdateSelectedRecipeIntentService;
 
 import java.util.List;
@@ -100,9 +101,6 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
                                     mBakingViewModel.updateRecipe(selectedRecipe);
                                 }
 
-                                Intent intent = new Intent(mActivity, UpdateSelectedRecipeIntentService.class);
-                                mActivity.startService(intent);
-
                                 // Animate the background change
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                     mActivity.runOnUiThread(new Runnable() {
@@ -125,6 +123,9 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
                                 // Apply the change to the model
                                 viewHolder.mRecipe.setSelected(true);
                                 mBakingViewModel.updateRecipe(viewHolder.mRecipe);
+
+                                // Update widget recipe
+                                IngredientsWidgetProvider.requestUpdateSelectedRecipe(mActivity);
 
                             }
                         });

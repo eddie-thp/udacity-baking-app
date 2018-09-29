@@ -55,7 +55,12 @@ public class IngredientsListRemoteViewsFactory implements RemoteViewsService.Rem
     @Override
     public RemoteViews getViewAt(int position) {
         RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.item_ingredient_widget_provider);
-        views.setTextViewText(R.id.ingredientNameTextView, mIngredients.get(position).getIngredient());
+
+        Ingredient ingredient = mIngredients.get(position);
+
+        int checkedImageResource = ingredient.isChecked() ? R.drawable.ic_check_box_black_24dp : R.drawable.ic_check_box_outline_blank_black_24dp;
+        views.setImageViewResource(R.id.checkedImageView, checkedImageResource);
+        views.setTextViewText(R.id.ingredientNameTextView, ingredient.getIngredient());
         return views;
     }
 
