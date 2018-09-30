@@ -41,6 +41,8 @@
             android:name=".widget.IngredientsListRemoteViewsService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
+        <service android:name=".widget.UpdateIngredientCheckStateService" />
+
     </application>
 
 </manifest>

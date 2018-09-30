@@ -1,6 +1,10 @@
 package org.ethp.udacitybakingapp.widget;
 
+import android.app.IntentService;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -54,13 +58,24 @@ public class IngredientsListRemoteViewsFactory implements RemoteViewsService.Rem
 
     @Override
     public RemoteViews getViewAt(int position) {
-        RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.item_ingredient_widget_provider);
-
         Ingredient ingredient = mIngredients.get(position);
 
+        RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.item_ingredient_widget_provider);
+
+        // Set checkbox image
         int checkedImageResource = ingredient.isChecked() ? R.drawable.ic_check_box_black_24dp : R.drawable.ic_check_box_outline_blank_black_24dp;
         views.setImageViewResource(R.id.checkedImageView, checkedImageResource);
+
+        // Set ingredient name in text view
         views.setTextViewText(R.id.ingredientNameTextView, ingredient.getIngredient());
+
+        // Create fillInIntent and set OnClick for (image) checkbox and textview
+        Intent ingredientFillInIntent = new Intent();
+        ingredientFillInIntent.putExtra(UpdateIngredientCheckStateService.EXTRA_INGREDIENT_IDX, position);
+
+        views.setOnClickFillInIntent(R.id.checkedImageView, ingredientFillInIntent);
+        views.setOnClickFillInIntent(R.id.ingredientNameTextView, ingredientFillInIntent);
+
         return views;
     }
 

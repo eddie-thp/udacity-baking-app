@@ -1,5 +1,6 @@
 package org.ethp.udacitybakingapp.widget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import org.ethp.udacitybakingapp.R;
+import org.ethp.udacitybakingapp.activity.recipes.RecipesActivity;
 
 /**
  * Implementation of App Widget functionality.
@@ -42,6 +44,11 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
     private void requestIngredientsUpdate(Context context, RemoteViews remoteViews) {
         Intent intent = new Intent(context, IngredientsListRemoteViewsService.class);
         remoteViews.setRemoteAdapter(R.id.ingredientsList, intent);
+
+        // Start the pending intent template to start the service that updates the ingredient check state
+        Intent updateIngredientCheckStateIntent = new Intent(context, UpdateIngredientCheckStateService.class);
+        PendingIntent updateIngredientCheckStatePendingIntent = PendingIntent.getService(context, 0, updateIngredientCheckStateIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setPendingIntentTemplate(R.id.ingredientsList, updateIngredientCheckStatePendingIntent);
     }
 
     public static void requestUpdateSelectedRecipe(Context context) {
@@ -57,7 +64,13 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
 
     public static void updateWidgetTitle(Context context, AppWidgetManager appWidgetManager, int appWidgetId, String title) {
         final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget_provider);
+
         views.setTextViewText(R.id.selectedRecipe, title);
+
+        Intent intent = new Intent(context, RecipesActivity.class);
+        PendingIntent recipesActivityPendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        views.setOnClickPendingIntent(R.id.selectedRecipe, recipesActivityPendingIntent);
+
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 

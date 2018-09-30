@@ -16,16 +16,6 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         tools:text="Recipe Name" />
 
-    <TextView
-        android:id="@+id/ingredientsTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
-        android:layout_marginStart="4dp"
-        android:layout_gravity="start"
-        android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Header"
-        tools:text="Ingredients:" />
-
     <ListView
         android:id="@+id/ingredientsList"
         android:layout_width="match_parent"
