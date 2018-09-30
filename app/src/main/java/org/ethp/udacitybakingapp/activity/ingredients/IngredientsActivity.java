@@ -40,7 +40,7 @@ public class IngredientsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         // Setup views
-        mIngredientsAdapter = new IngredientsAdapter(mBakingViewModel);
+        mIngredientsAdapter = new IngredientsAdapter(this, mBakingViewModel);
         mIngredientsRecyclerView.setAdapter(mIngredientsAdapter);
         mIngredientsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 

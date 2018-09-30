@@ -1,5 +1,7 @@
 package org.ethp.udacitybakingapp.activity.ingredients;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +16,7 @@ import org.ethp.udacitybakingapp.AppExecutors;
 import org.ethp.udacitybakingapp.R;
 import org.ethp.udacitybakingapp.data.database.Ingredient;
 import org.ethp.udacitybakingapp.data.viewmodel.BakingViewModel;
+import org.ethp.udacitybakingapp.widget.IngredientsWidgetProvider;
 
 import java.util.List;
 
@@ -22,11 +25,14 @@ import butterknife.ButterKnife;
 
 public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.IngredientViewHolder> {
 
+    private Context mContext;
+
     private BakingViewModel mBakingViewModel;
 
     private List<Ingredient> mIngredients;
 
-    public IngredientsAdapter(BakingViewModel bakingViewModel) {
+    public IngredientsAdapter(Context context, BakingViewModel bakingViewModel) {
+        mContext = context;
         mBakingViewModel = bakingViewModel;
     }
 
@@ -82,6 +88,13 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
                             @Override
                             public void run() {
                                 mBakingViewModel.updateIngredient(ingredient);
+
+                                // Update widget
+                                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(mContext);
+                                int[] appWidgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(mContext, IngredientsWidgetProvider.class));
+
+                                // Notify that the list of ingredients needs to be updated
+                                appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.ingredientsList);
                             }
                         });
                     }
