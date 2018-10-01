@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.ethp.udacitybakingapp.R;
@@ -21,6 +22,9 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepViewHold
     private List<Step> mSteps;
 
     public class StepViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.playImageView)
+        ImageView mPlayImageView;
 
         @BindView(R.id.descriptionTextView)
         TextView mDescriptionTextView;
@@ -46,6 +50,10 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepViewHold
     @Override
     public void onBindViewHolder(@NonNull StepViewHolder holder, int position) {
         Step step = mSteps.get(position);
+
+        int visibility = (position == 0 ? View.VISIBLE : View.INVISIBLE);
+        holder.mPlayImageView.setVisibility(visibility);
+
         holder.mDescriptionTextView.setText(step.getDescription());
     }
 
