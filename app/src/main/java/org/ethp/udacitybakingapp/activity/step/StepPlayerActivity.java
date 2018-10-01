@@ -41,9 +41,11 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
+import org.ethp.udacitybakingapp.AppExecutors;
 import org.ethp.udacitybakingapp.Constants;
 import org.ethp.udacitybakingapp.R;
 import org.ethp.udacitybakingapp.activity.steps.StepsAdapter;
+import org.ethp.udacitybakingapp.data.database.Recipe;
 import org.ethp.udacitybakingapp.data.database.Step;
 import org.ethp.udacitybakingapp.data.viewmodel.BakingViewModel;
 
@@ -89,50 +91,71 @@ public class StepPlayerActivity extends AppCompatActivity implements Player.Even
         // Setup view model
         mBakingViewModel = ViewModelProviders.of(this).get(BakingViewModel.class);
 
-        int recipeId = getIntent().getIntExtra(Constants.EXTRA_RECIPE_ID, -1);
+        AppExecutors.getInstance().getDiskExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                final Recipe recipe = mBakingViewModel.getSelectedRecipe();
 
-        if (recipeId >= 0) {
+                if (recipe != null) {
 
-            initializeMediaSession();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            initializeMediaSession();
 
-            // TODO store current recipe / step in the database
-            mBakingViewModel.getStepsLiveData(recipeId).observe(this, new Observer<List<Step>>() {
-                @Override
-                public void onChanged(@Nullable List<Step> steps) {
-                    mSteps = steps;
+                            // TODO store current recipe / step in the database
+                            mBakingViewModel.getStepsLiveData(recipe.getId()).observe(StepPlayerActivity.this, new Observer<List<Step>>() {
+                                @Override
+                                public void onChanged(@Nullable List<Step> steps) {
+                                    mSteps = steps;
 
-                    String userAgent =  Util.getUserAgent(StepPlayerActivity.this, "BakingApp");
+                                    String userAgent =  Util.getUserAgent(StepPlayerActivity.this, "BakingApp");
 
-                    ConcatenatingMediaSource concatenatingMediaSource = new ConcatenatingMediaSource();
-                    String videoURL = "";
-                    for (Step step : mSteps) {
+                                    ConcatenatingMediaSource concatenatingMediaSource = new ConcatenatingMediaSource();
+                                    String videoURL = "";
+                                    for (Step step : mSteps) {
 
-                        if (!step.getVideoURL().isEmpty()) {
-                            videoURL = step.getVideoURL();
-                        } else if (!step.getThumbnailURL().isEmpty()) {
-                            videoURL = step.getThumbnailURL();
+                                        if (!step.getVideoURL().isEmpty()) {
+                                            videoURL = step.getVideoURL();
+                                        } else if (!step.getThumbnailURL().isEmpty()) {
+                                            videoURL = step.getThumbnailURL();
+                                        }
+
+                                        MediaSource mediaSource = new ExtractorMediaSource(Uri.parse(videoURL),
+                                                new DefaultDataSourceFactory(StepPlayerActivity.this, userAgent),
+                                                new DefaultExtractorsFactory(),
+                                                null, null);
+
+                                        concatenatingMediaSource.addMediaSource(mediaSource);
+                                    }
+
+
+
+                                    Step step = mSteps.get(currentStep);
+
+                                    mDescriptionTextView.setText(step.getDescription());
+
+                                    Uri thumbnailUri = Uri.parse(step.getThumbnailURL());
+
+                                    initializePlayer(concatenatingMediaSource);
+                                }
+                            });
                         }
+                    });
 
-                        MediaSource mediaSource = new ExtractorMediaSource(Uri.parse(videoURL),
-                                new DefaultDataSourceFactory(StepPlayerActivity.this, userAgent),
-                                new DefaultExtractorsFactory(),
-                                null, null);
+                    /*
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
 
-                        concatenatingMediaSource.addMediaSource(mediaSource);
-                    }
-
-
-
-                    Step step = mSteps.get(currentStep);
-
-                    mDescriptionTextView.setText(step.getDescription());
-
-                    Uri thumbnailUri = Uri.parse(step.getThumbnailURL());
-
-                    initializePlayer(concatenatingMediaSource);
+                        }
+                    });
+                    */
                 }
-            });
-        }
+
+
+            }
+        });
     }
 
     @Override
