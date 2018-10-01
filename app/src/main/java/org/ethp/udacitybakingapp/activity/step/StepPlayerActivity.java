@@ -9,19 +9,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlaybackException;
-import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.LoadControl;
 import com.google.android.exoplayer2.PlaybackParameters;
-import com.google.android.exoplayer2.PlaybackPreparer;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
@@ -34,7 +27,6 @@ import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
-import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
@@ -42,9 +34,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
 import org.ethp.udacitybakingapp.AppExecutors;
-import org.ethp.udacitybakingapp.Constants;
 import org.ethp.udacitybakingapp.R;
-import org.ethp.udacitybakingapp.activity.steps.StepsAdapter;
 import org.ethp.udacitybakingapp.data.database.Recipe;
 import org.ethp.udacitybakingapp.data.database.Step;
 import org.ethp.udacitybakingapp.data.viewmodel.BakingViewModel;
@@ -81,7 +71,7 @@ public class StepPlayerActivity extends AppCompatActivity implements Player.Even
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_step);
+        setContentView(R.layout.activity_step_player);
 
         // Bind views
         ButterKnife.bind(this);
