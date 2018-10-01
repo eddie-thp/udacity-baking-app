@@ -1,6 +1,7 @@
 package org.ethp.udacitybakingapp.activity.steps;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.ethp.udacitybakingapp.R;
+import org.ethp.udacitybakingapp.activity.step.StepPlayerActivity;
 import org.ethp.udacitybakingapp.data.database.Step;
 
 import java.util.List;
@@ -55,6 +57,16 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepViewHold
         holder.mPlayImageView.setVisibility(visibility);
 
         holder.mDescriptionTextView.setText(step.getDescription());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), StepPlayerActivity.class);
+                view.getContext().startActivity(intent);
+            }
+        });
+
+
     }
 
     void setSteps(List<Step> steps){

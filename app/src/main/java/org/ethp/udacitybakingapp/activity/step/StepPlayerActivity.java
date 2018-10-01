@@ -52,9 +52,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class StepActivity extends AppCompatActivity implements Player.EventListener {
+public class StepPlayerActivity extends AppCompatActivity implements Player.EventListener {
 
-    private static final String LOG_TAG = StepActivity.class.getSimpleName();
+    private static final String LOG_TAG = StepPlayerActivity.class.getSimpleName();
 
     @BindView(R.id.descriptionTextView)
     TextView mDescriptionTextView;
@@ -101,7 +101,7 @@ public class StepActivity extends AppCompatActivity implements Player.EventListe
                 public void onChanged(@Nullable List<Step> steps) {
                     mSteps = steps;
 
-                    String userAgent =  Util.getUserAgent(StepActivity.this, "BakingApp");
+                    String userAgent =  Util.getUserAgent(StepPlayerActivity.this, "BakingApp");
 
                     ConcatenatingMediaSource concatenatingMediaSource = new ConcatenatingMediaSource();
                     String videoURL = "";
@@ -113,10 +113,8 @@ public class StepActivity extends AppCompatActivity implements Player.EventListe
                             videoURL = step.getThumbnailURL();
                         }
 
-
-
                         MediaSource mediaSource = new ExtractorMediaSource(Uri.parse(videoURL),
-                                new DefaultDataSourceFactory(StepActivity.this, userAgent),
+                                new DefaultDataSourceFactory(StepPlayerActivity.this, userAgent),
                                 new DefaultExtractorsFactory(),
                                 null, null);
 

@@ -21,7 +21,7 @@
         </activity>
         <activity android:name=".activity.ingredients.IngredientsActivity" />
         <activity android:name=".activity.steps.StepsActivity" />
-        <activity android:name=".activity.step.StepActivity" />
+        <activity android:name=".activity.step.StepPlayerActivity" />
 
         <!-- Receivers -->
         <receiver android:name=".widget.IngredientsWidgetProvider">
