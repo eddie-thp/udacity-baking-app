@@ -28,6 +28,15 @@ public interface BakingDao {
     @Update
     void updateIngredient(Ingredient ingredient);
 
+    @Update
+    void updateStep(Step step);
+
+    @Query("UPDATE steps SET playing = 0 WHERE playing = 1")
+    void updateResetPlayingStep();
+
+    @Query("UPDATE steps SET playing = 1 WHERE id = 0")
+    void updateSetFirstStepPlaying();
+
     @Query("SELECT * FROM recipes ORDER BY id")
     LiveData<List<Recipe>> getRecipesLiveData();
 

@@ -46,4 +46,16 @@ public class BakingRepository {
         return mBakingDao.getStepsLiveData(recipeId);
     }
 
+    public void updateStep(Step step) {
+        mBakingDao.updateStep(step);
+    }
+
+    public void updateResetPlayingStep() {
+        mBakingDao.updateResetPlayingStep();
+    }
+
+    public void updateSetFirstStepPlaying() {
+        mBakingDao.updateSetFirstStepPlaying();
+    }
+
 }

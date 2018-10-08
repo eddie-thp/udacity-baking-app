@@ -1,6 +1,7 @@
 package org.ethp.udacitybakingapp.activity.step;
 
 import android.app.NotificationManager;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.net.Uri;
@@ -48,6 +49,8 @@ public class StepPlayerActivity extends AppCompatActivity implements Player.Even
 
     private static final String LOG_TAG = StepPlayerActivity.class.getSimpleName();
 
+    public static final String EXTRA_STEP_TO_PLAY = "stepToPlay";
+
     @BindView(R.id.descriptionTextView)
     TextView mDescriptionTextView;
 
@@ -66,12 +69,16 @@ public class StepPlayerActivity extends AppCompatActivity implements Player.Even
 
     private List<Step> mSteps;
 
-    private int currentStep = 0;
+    private int mStepToPlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_step_player);
+
+        mStepToPlay = getIntent().getIntExtra(EXTRA_STEP_TO_PLAY, 0);
+
+        Log.d(LOG_TAG, "STEP TO PLAY is " + mStepToPlay);
 
         // Bind views
         ButterKnife.bind(this);
@@ -93,17 +100,24 @@ public class StepPlayerActivity extends AppCompatActivity implements Player.Even
                         public void run() {
                             initializeMediaSession();
 
-                            // TODO store current recipe / step in the database
-                            mBakingViewModel.getStepsLiveData(recipe.getId()).observe(StepPlayerActivity.this, new Observer<List<Step>>() {
+                            final LiveData<List<Step>> recipeStepsLiveData = mBakingViewModel.getStepsLiveData(recipe.getId());
+
+                            recipeStepsLiveData.observe(StepPlayerActivity.this, new Observer<List<Step>>() {
                                 @Override
                                 public void onChanged(@Nullable List<Step> steps) {
+                                    // Remove observer after 1st execution, it doesn't matter if the data changes anymore
+                                    ((LiveData) recipeStepsLiveData).removeObserver(this);
+
                                     mSteps = steps;
 
                                     String userAgent =  Util.getUserAgent(StepPlayerActivity.this, "BakingApp");
 
                                     ConcatenatingMediaSource concatenatingMediaSource = new ConcatenatingMediaSource();
+
+                                    // HACK - storing previous URLs in case I'm loading a bad url - TODO has to be reviewed
                                     String videoURL = "";
-                                    for (Step step : mSteps) {
+                                    for (int i = 0 ; i < mSteps.size(); i++) {
+                                        Step step = mSteps.get(i);
 
                                         if (!step.getVideoURL().isEmpty()) {
                                             videoURL = step.getVideoURL();
@@ -119,28 +133,12 @@ public class StepPlayerActivity extends AppCompatActivity implements Player.Even
                                         concatenatingMediaSource.addMediaSource(mediaSource);
                                     }
 
-
-
-                                    Step step = mSteps.get(currentStep);
-
-                                    mDescriptionTextView.setText(step.getDescription());
-
-                                    Uri thumbnailUri = Uri.parse(step.getThumbnailURL());
-
                                     initializePlayer(concatenatingMediaSource);
+
                                 }
                             });
                         }
                     });
-
-                    /*
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                        }
-                    });
-                    */
                 }
 
 
@@ -228,8 +226,9 @@ public class StepPlayerActivity extends AppCompatActivity implements Player.Even
             mExoPlayer = ExoPlayerFactory.newSimpleInstance(this, trackSelector);
             mExoPlayer.addListener(this);
             mExoPlayerView.setPlayer(mExoPlayer);
-
             mExoPlayer.prepare(mediaSource);
+            // See: https://github.com/google/ExoPlayer/issues/2639, how to seek to a certain track
+            mExoPlayer.seekTo(mStepToPlay, 0);
             mExoPlayer.setPlayWhenReady(true);
         }
     }
@@ -256,10 +255,20 @@ public class StepPlayerActivity extends AppCompatActivity implements Player.Even
 
         int index = mExoPlayer.getCurrentPeriodIndex();
 
-        Step step = mSteps.get(index);
+        Log.d(LOG_TAG, "TRACK CHANGED - current track: " + index);
+
+        final Step step = mSteps.get(index);
+        step.setPlaying(true);
 
         mDescriptionTextView.setText(step.getDescription());
-        Log.i(LOG_TAG, "TRACK CHANGED - current track: " + index);
+
+        AppExecutors.getInstance().getDiskExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                mBakingViewModel.updateResetPlayingStep();
+                mBakingViewModel.updateStep(step);
+            }
+        });
     }
 
     @Override

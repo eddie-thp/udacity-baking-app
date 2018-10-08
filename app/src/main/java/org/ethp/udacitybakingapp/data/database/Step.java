@@ -37,6 +37,7 @@ public class Step {
     private String description;
     private String videoURL;
     private String thumbnailURL;
+    private boolean playing;
     private int recipeId;
 
     @Ignore
@@ -81,6 +82,14 @@ public class Step {
 
     public void setThumbnailURL(String thumbnailURL) {
         this.thumbnailURL = thumbnailURL;
+    }
+
+    public boolean isPlaying() {
+        return playing;
+    }
+
+    public void setPlaying(boolean playing) {
+        this.playing = playing;
     }
 
     public int getRecipeId() {

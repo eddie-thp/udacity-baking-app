@@ -44,4 +44,16 @@ public class BakingViewModel extends AndroidViewModel {
     public LiveData<List<Step>> getStepsLiveData(int recipeId) {
         return mBakingRepository.getStepsLiveData(recipeId);
     }
+
+    public void updateStep(Step step) {
+        mBakingRepository.updateStep(step);
+    }
+
+    public void updateResetPlayingStep() {
+        mBakingRepository.updateResetPlayingStep();
+    }
+
+    public void updateSetFirstStepPlaying() {
+        mBakingRepository.updateSetFirstStepPlaying();
+    }
 }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import org.ethp.udacitybakingapp.R;
 import org.ethp.udacitybakingapp.activity.step.StepPlayerActivity;
+import org.ethp.udacitybakingapp.data.database.Recipe;
 import org.ethp.udacitybakingapp.data.database.Step;
 
 import java.util.List;
@@ -50,10 +51,10 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull StepViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull StepViewHolder holder, final int position) {
         Step step = mSteps.get(position);
 
-        int visibility = (position == 0 ? View.VISIBLE : View.INVISIBLE);
+        int visibility = (step.isPlaying() ? View.VISIBLE : View.INVISIBLE);
         holder.mPlayImageView.setVisibility(visibility);
 
         holder.mDescriptionTextView.setText(step.getDescription());
@@ -62,11 +63,10 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepViewHold
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), StepPlayerActivity.class);
+                intent.putExtra(StepPlayerActivity.EXTRA_STEP_TO_PLAY, position);
                 view.getContext().startActivity(intent);
             }
         });
-
-
     }
 
     void setSteps(List<Step> steps){
