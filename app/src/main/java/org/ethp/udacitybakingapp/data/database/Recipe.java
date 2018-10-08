@@ -86,7 +86,7 @@ public class Recipe {
         this.image = image;
     }
 
-    public boolean getSelected() {
+    public boolean isSelected() {
         return selected;
     }
 
@@ -138,5 +138,13 @@ public class Recipe {
         recipe.ingredients = Ingredient.fromJSONArray(recipe, recipeJSON.getJSONArray(JSON_INGREDIENTS));
         recipe.steps = Step.fromJSONArray(recipe, recipeJSON.getJSONArray(JSON_STEPS));
         return recipe;
+    }
+
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof Recipe)) {
+            return false;
+        }
+
+        return (this.getId() == ((Recipe) obj).getId());
     }
 }

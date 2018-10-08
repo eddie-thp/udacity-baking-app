@@ -2,15 +2,8 @@ package org.ethp.udacitybakingapp.activity.recipes;
 
 import android.animation.Animator;
 import android.app.Activity;
-import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.ColorRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.UiThread;
-import android.support.transition.CircularPropagation;
-import android.support.transition.TransitionPropagation;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,30 +13,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.signature.ObjectKey;
-import com.google.common.base.Strings;
 
 import org.ethp.udacitybakingapp.AppExecutors;
 import org.ethp.udacitybakingapp.R;
 import org.ethp.udacitybakingapp.data.database.Recipe;
 import org.ethp.udacitybakingapp.data.viewmodel.BakingViewModel;
 import org.ethp.udacitybakingapp.widget.IngredientsWidgetProvider;
-import org.ethp.udacitybakingapp.widget.UpdateSelectedRecipeIntentService;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import jp.wasabeef.glide.transformations.BlurTransformation;
-
-import static org.ethp.udacitybakingapp.Constants.EXTRA_RECIPE_ID;
 
 public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeViewHolder> {
-
-    private static final String PLACEHOLDER_SERVICE_URL = "https://loremflickr.com/320/240/recipe";
 
     private Activity mActivity;
 
@@ -95,38 +78,42 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
                             public void run() {
                                 Recipe selectedRecipe = mBakingViewModel.getSelectedRecipe();
 
-                                // Unset previously selected recipe
-                                if (selectedRecipe != null && selectedRecipe != viewHolder.mRecipe) {
-                                    selectedRecipe.setSelected(false);
-                                    mBakingViewModel.updateRecipe(selectedRecipe);
-                                }
+                                // Only update the selected recipe if it has changed
+                                if (!viewHolder.mRecipe.equals(selectedRecipe)) {
+                                    // Unset previously selected recipe
+                                    if (selectedRecipe != null) {
+                                        selectedRecipe.setSelected(false);
+                                        mBakingViewModel.updateRecipe(selectedRecipe);
+                                    }
 
-                                // Animate the background change
-                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                    mActivity.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                                // Animation from Udacity Lesson 2.15 (Surfaces)
-                                                // https://github.com/udacity/ud862-samples/blob/master/SimplePaperTransformations/app/src/main/java/com/example/android/papertransformations/MainActivity.java
-                                                int finalRadius = (int) Math.hypot(v.getWidth() / 2, v.getHeight() / 2);
-                                                Animator anim = ViewAnimationUtils.createCircularReveal(v, (int) v.getWidth() / 2, (int) v.getHeight() / 2, 0, finalRadius);
+                                    // Animate the background change
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                        mActivity.runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                                    // Animation from Udacity Lesson 2.15 (Surfaces)
+                                                    // https://github.com/udacity/ud862-samples/blob/master/SimplePaperTransformations/app/src/main/java/com/example/android/papertransformations/MainActivity.java
+                                                    int finalRadius = (int) Math.hypot(v.getWidth() / 2, v.getHeight() / 2);
+                                                    Animator anim = ViewAnimationUtils.createCircularReveal(v, (int) v.getWidth() / 2, (int) v.getHeight() / 2, 0, finalRadius);
 
 
-                                                v.setBackgroundColor(mActivity.getResources().getColor(R.color.primaryLightColor));
-                                                anim.start();
+                                                    v.setBackgroundColor(mActivity.getResources().getColor(R.color.primaryLightColor));
+                                                    anim.start();
+                                                }
                                             }
-                                        }
-                                    });
+                                        });
+                                    }
+
+                                    // Apply the change to the model
+                                    viewHolder.mRecipe.setSelected(true);
+                                    mBakingViewModel.updateRecipe(viewHolder.mRecipe);
+                                    mBakingViewModel.updateResetPlayingStep();
+                                    mBakingViewModel.updateSetFirstStepPlaying();
+
+                                    // Update widget recipe
+                                    IngredientsWidgetProvider.requestUpdateSelectedRecipe(mActivity);
                                 }
-
-                                // Apply the change to the model
-                                viewHolder.mRecipe.setSelected(true);
-                                mBakingViewModel.updateRecipe(viewHolder.mRecipe);
-
-                                // Update widget recipe
-                                IngredientsWidgetProvider.requestUpdateSelectedRecipe(mActivity);
-
                             }
                         });
             }
@@ -151,7 +138,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeVi
                 .apply(RequestOptions.placeholderOf(R.mipmap.recipe_placeholder))
                 .into(holder.mRecipeImageView);
 
-        if (recipe.getSelected()) {
+        if (recipe.isSelected()) {
             // TODO investigate how can animate the itemView through onBindViewHolder
             // java.lang.IllegalStateException: Cannot start this animator on a detached view!
             // https://stackoverflow.com/questions/34836902/clear-animation-in-viewholders-item-recyclerview
